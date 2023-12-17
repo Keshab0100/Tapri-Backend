@@ -21,7 +21,9 @@ export const getOrder = async (req, res) => {
     console.log(exist);
     
     if (exist.length > 0) {
-      const data = await Product.findOne({ productId: exist[0].productId });
+      const arrLength = exist.length;
+      console.log(arrLength);
+      const data = await Product.findOne({ productId: exist[arrLength-1].productId });
       console.log(data);
       return res.status(200).json({ data: data });
     } else {
