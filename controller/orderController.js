@@ -18,8 +18,11 @@ export const getOrder = async (req, res) => {
     const phoneNo = req.body.phone;
     const exist = await Order.find({ phone: phoneNo });
 
+    console.log(exist);
+    
     if (exist.length > 0) {
       const data = await Product.findOne({ productId: exist[0].productId });
+      console.log(data);
       return res.status(200).json({ data: data });
     } else {
       return res.status(200).json({ data: [] }); // Return an empty array if no orders found
