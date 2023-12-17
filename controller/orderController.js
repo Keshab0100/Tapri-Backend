@@ -17,10 +17,12 @@ export const getOrder = async (req, res) => {
   try {
     const phoneNo = req.body.phone;
     const exist = await Order.find({ phone: phoneNo });
-    if (exist) {
+
+    if (exist.length > 0) {
       const data = await Product.findOne({ productId: exist[0].productId });
-      //   console.log(data);
       return res.status(200).json({ data: data });
+    } else {
+      return res.status(200).json({ data: [] }); // Return an empty array if no orders found
     }
   } catch (error) {
     console.log(error);
